@@ -9,10 +9,14 @@ const client = new twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET ,
 });
 
-var params = {screen_name: '@kenken5018'};
+var params = { 
+  user_id: process.env.USER_ID ,
+  include_rts: false ,
+};
+
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+    console.log(JSON.stringify(tweets));
   } else {
     console.log(error);
   }

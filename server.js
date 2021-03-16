@@ -1,19 +1,25 @@
 'use strict';
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const app = express();
+
 const client = require('./twitter/twitter');
-require('dotenv').config();
 
 const { data } = await client.get('tweets', { ids: process.env.USER_ID });
 console.log(data);
 
-const express = require('express');
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
-const app = express();
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-const PORT = 8080;
-const HOST = '0.0.0.0';
+const PORT = process.env.port || process.env.PORT || 5000;
+const HOST = process.env.host || process.env.HOST || '0.0.0.0';
 app.listen(PORT, HOST);
 
 console.log(`Running on http://${HOST}:${PORT}`);

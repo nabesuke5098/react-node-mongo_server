@@ -1,6 +1,6 @@
 const twitter = require('twitter');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const dotenv = require('dotenv');
+dotenv.config({ path: require('find-config')('.env') });
 
 const client = new twitter({
   consumer_key: process.env.API_KEY ,
